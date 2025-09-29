@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
-import { BpmnPropertiesPanelModule, BpmnPropertiesProviderModule } from 'bpmn-js-properties-panel';
+import {
+  BpmnPropertiesPanelModule,
+  BpmnPropertiesProviderModule,
+} from 'bpmn-js-properties-panel';
 import Modeler from 'bpmn-js/lib/Modeler';
 import { from, Observable } from 'rxjs';
 import customPropertiesProvider from '../custom-properties-provider/custom-property-provider';
 import custom from '../utils/descriptors/custom.json';
+import customResizeRules from './modules/custom-resize-rules';
 
 export interface BpmnConfig {
   container?: any;
@@ -29,7 +33,7 @@ export interface CommandStack {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BpmnService {
   private modeler: Modeler | null = null;
@@ -45,11 +49,12 @@ export class BpmnService {
       additionalModules: [
         BpmnPropertiesPanelModule,
         BpmnPropertiesProviderModule,
-        customPropertiesProvider
+        customPropertiesProvider,
+        customResizeRules,
       ],
       moddleExtensions: {
-        custom: custom
-      }
+        custom: custom,
+      },
     };
 
     const mergedConfig = { ...defaultConfig, ...config };
@@ -64,10 +69,10 @@ export class BpmnService {
     return this.modeler;
   }
 
-  getCommandStack(): CommandStack | null  {
-    if(this.commandStack) return this.commandStack;
+  getCommandStack(): CommandStack | null {
+    if (this.commandStack) return this.commandStack;
     else {
-      this.commandStack = this.getModeler()!.get("commandStack");
+      this.commandStack = this.getModeler()!.get('commandStack');
       return this.commandStack;
     }
   }
@@ -75,7 +80,10 @@ export class BpmnService {
   /**
    * Attaches the modeler to DOM elements
    */
-  attachModeler(diagramContainer: HTMLElement, propertiesContainer?: HTMLElement): void {
+  attachModeler(
+    diagramContainer: HTMLElement,
+    propertiesContainer?: HTMLElement
+  ): void {
     if (!this.modeler) {
       throw new Error('Modeler not initialized. Call createModeler first.');
     }
