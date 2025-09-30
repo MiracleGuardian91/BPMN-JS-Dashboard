@@ -8,6 +8,8 @@ import { from, Observable } from 'rxjs';
 import customPropertiesProvider from '../custom-properties-provider/custom-property-provider';
 import custom from '../utils/descriptors/custom.json';
 import customResizeRules from './modules/custom-resize-rules';
+import customLaneResizeBehavior from './modules/custom-lane-resize-behavior';
+import forceLaneSpace from './modules/force-lane-space';
 
 export interface BpmnConfig {
   container?: any;
@@ -51,6 +53,8 @@ export class BpmnService {
         BpmnPropertiesProviderModule,
         customPropertiesProvider,
         customResizeRules,
+        customLaneResizeBehavior,
+        forceLaneSpace,
       ],
       moddleExtensions: {
         custom: custom,
