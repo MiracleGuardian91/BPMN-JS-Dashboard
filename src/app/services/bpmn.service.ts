@@ -10,6 +10,8 @@ import custom from '../utils/descriptors/custom.json';
 import customResizeRules from './modules/custom-resize-rules';
 import customLaneResizeBehavior from './modules/custom-lane-resize-behavior';
 import forceLaneSpace from './modules/force-lane-space';
+import shiftConnectionsByWaypoints from './modules/shift-connections-by-waypoints';
+import fixConnectionsAfterLaneResize from './modules/fix-connections-after-lane-resize';
 
 export interface BpmnConfig {
   container?: any;
@@ -53,8 +55,10 @@ export class BpmnService {
         BpmnPropertiesProviderModule,
         customPropertiesProvider,
         customResizeRules,
-        customLaneResizeBehavior,
         forceLaneSpace,
+        // customLaneResizeBehavior,
+        fixConnectionsAfterLaneResize,
+        shiftConnectionsByWaypoints,
       ],
       moddleExtensions: {
         custom: custom,
